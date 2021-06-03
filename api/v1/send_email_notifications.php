@@ -58,6 +58,8 @@
                     echo "Failed";
                 }
             }
+            //wait for 1 second before processing another record
+            sleep(1);
         }
     } else {
         echo "No results";

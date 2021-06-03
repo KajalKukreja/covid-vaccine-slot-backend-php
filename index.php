@@ -21,6 +21,13 @@
         header("Location: ".$protocol.$host.$domain."/api/v1/verify_recaptcha.php".$query_string);
         exit();
     }
+    else if(strpos($uri, '?unsubscribe') !== false) {
+        $domain = substr($uri, 0, strpos($uri, '?'));
+        $domain = str_replace('/', '', $domain);
+        $query_string = "?email=".$_GET['email'];
+        header("Location: ".$protocol.$host.$domain."/api/v1/unsubscribe.php".$query_string);
+        exit();
+    }
 ?>
 <html>
     <head></head>

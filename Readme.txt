@@ -17,18 +17,22 @@ and they are not exposed to public
     config.php
     dbconfig.php
     get_available_slots.php
-    message.php
-    send_email_notifications.php
     send_emails.php
+    unsubscribe.php
     verify_recaptcha.php
     member/add_member.php
     member/member.php
+
+We need to run cron job on send_email_notifications.php, so make sure it has 500 permission
 
 Update this header based on your client application. Mine is angular application so I am using this value. When it will be deployed on server, we need to add our domain instead of localhost
 header("Access-Control-Allow-Origin: http://localhost:4200");
 
 Replace in following files -
-all index.php files
+main index.php file
 verify_recaptcha.php
 member/add_member.php
 
+
+Use this command to create a cron job to send alert -
+php -q /home2/yourusername/public_html/covid-vaccine-slot-backend/api/v1/send_email_notifications.php >> /home2/yourusername/public_html/covid-vaccine-slot-backend/api/v1/cron_logs.log
