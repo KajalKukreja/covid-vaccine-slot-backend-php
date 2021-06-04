@@ -93,7 +93,7 @@
                             color: #2152b3;'>Get Map Directions</a>
                         </p>";
                         
-                        if ($slot[2] == "Paid") {
+                        if ($slot[2] == "Paid" && $slot[6] != null) {
                             foreach($slot[6] as $vaccine) {
                                 $message .= "<span>".$vaccine->vaccine.": Rs. ".$vaccine->fee."</span>";
                             }
@@ -110,7 +110,7 @@
                             color: #2e2e2e;
                             font-weight: 700;
                             background-color: #a9d18e;
-                            padding: 0 10px;
+                            padding: 0 8px;
                             line-height: 20px;
                             margin-top: 5px;
                             border-radius: 50px;
@@ -131,7 +131,7 @@
                         color: #2e2e2e;
                         font-weight: 700;
                         background-color: #a9d18e;
-                        padding: 0 10px;
+                        padding: 0 8px;
                         line-height: 20px;
                         margin-top: 5px;
                         border-radius: 50px;
@@ -144,8 +144,8 @@
                         $message .= "<span class='nocapacity' style='text-decoration: none;
                         color: #2e2e2e;
                         font-weight: 700;
-                        background-color: #ff00009e;
-                        padding: 0 10px;
+                        background-color: red;
+                        padding: 0 8px;
                         line-height: 20px;
                         margin-top: 5px;
                         border-radius: 50px;
@@ -162,7 +162,7 @@
                         color: #2e2e2e;
                         font-weight: 700;
                         background-color: #a9d18e;
-                        padding: 0 10px;
+                        padding: 0 8px;
                         line-height: 20px;
                         margin-top: 5px;
                         border-radius: 50px;
@@ -175,8 +175,8 @@
                         $message .= "<span class='nocapacity' style='text-decoration: none;
                         color: #2e2e2e;
                         font-weight: 700;
-                        background-color: #ff00009e;
-                        padding: 0 10px;
+                        background-color: red;
+                        padding: 0 8px;
                         line-height: 20px;
                         margin-top: 5px;
                         border-radius: 50px;
@@ -216,6 +216,7 @@
             <p>If you don't want to recieve such alerts, click <a href='http://kajalkukreja.com/covid-vaccine-slot-backend/?unsubscribe&email=".$email."'>here</a>
         </body>
     </html>";
+        
         return mail($email, $subject, $message, $headers);
     }
 ?>

@@ -20,46 +20,83 @@
 
         while($row = $result->fetch_assoc()) {
             $time_slots = array();
-            $member = new Member($row["id"], $row["email"], $row["mobile_no"], $row["pincode"], $row["district_id"]);
-            echo "<br/>".$member->get_id()." ".$member->get_email()." ".$member->get_mobile_no()." ".$member->get_pincode()." ".$member->get_district_id()."<br/>";
+            $member = new Member($row["id"], $row["email"], $row["mobile_no"], $row["pincode"], $row["district_id"], $row["age"], $row["dose"]);
+            echo "\n".$member->get_id()." ".$member->get_email()." ".$member->get_mobile_no()." ".$member->get_pincode()." ".$member->get_district_id()." ".$member->get_age()." ".$member->get_dose();
 
-            if ($member->get_pincode() != null && 
-                strlen(trim($member->get_pincode())) > 0 && 
-                $member->get_pincode() != 0) 
-            {
-                if (array_key_exists($member->get_pincode(), $data_by_pincode)) {
-                    $time_slots = $data_by_pincode[$member->get_pincode()];
+            if ($member->get_email() != 'null') {
+                if ($member->get_pincode() != null && 
+                    strlen(trim($member->get_pincode())) > 0 && 
+                    $member->get_pincode() != 0) 
+                {
+                    if (array_key_exists($member->get_pincode(), $data_by_pincode)) {
+                        $time_slots = $data_by_pincode[$member->get_pincode()];
+                    }
+                    else {
+                        $time_slots = get_available_slots($member->get_pincode(), 0);
+                        $data_by_pincode[$member->get_pincode()] = $time_slots;
+                    }
                 }
-                else {
-                    $time_slots = get_available_slots($member->get_pincode(), 0);
-                    $data_by_pincode[$member->get_pincode()] = $time_slots;
+
+                if ($member->get_district_id() != null && 
+                    strlen(trim($member->get_district_id())) > 0 && 
+                    $member->get_district_id() != 0) 
+                {
+                    if (array_key_exists($member->get_district_id(), $data_by_district_id)) {
+                        $available_slots = $data_by_district_id[$member->get_district_id()];
+                        $time_slots = array_merge($time_slots, $available_slots);
+                    }
+                    else {
+                        $available_slots = get_available_slots(0, $member->get_district_id());
+                        $data_by_district_id[$member->get_district_id()] = $available_slots;
+                        $time_slots = array_merge($time_slots, $available_slots);
+                    }
                 }
+                
+                if ($time_slots != null) {
+
+                    $filtered_slots = array();
+                    
+                    //now filter the slots based on age/dose
+                    if ($member->get_age() != null && $member->get_dose() != null) {
+                        foreach($time_slots as $slot) {
+                            $available_doses = $member->get_dose() == 'dose1' ? $slot[3] : $slot[4];
+                            if ($member->get_age() == $slot[7] && $available_doses > 0) {
+                                array_push($filtered_slots, $slot);
+                            }
+                        }
+                    }
+                    else if ($member->get_age() != null) {
+                        foreach($time_slots as $slot) {
+                            if ($member->get_age() == $slot[7]) {
+                                array_push($filtered_slots, $slot);
+                            }
+                        }
+                    }
+                    else if ($member->get_dose() != null) {
+                        foreach($time_slots as $slot) {
+                            $available_doses = $member->get_dose() == 'dose1' ? $slot[3] : $slot[4];
+                            if ($available_doses > 0) {
+                                array_push($filtered_slots, $slot);
+                            }
+                        }
+                    }
+                    else {
+                        $filtered_slots = $time_slots;
+                    }
+
+                    if (count($filtered_slots) > 0) {
+                        if (send_email($member->get_email(), $filtered_slots)) {
+                            echo "\nMail sent to ".$member->get_email();
+                        }
+                        else {
+                            echo "\nMail could not be sent to ".$member->get_email();
+                        }
+                    }
+                }
+                
+                //wait for 1 second before processing another record
+                sleep(1);
             }
-            if ($member->get_district_id() != null && 
-                strlen(trim($member->get_district_id())) > 0 && 
-                $member->get_district_id() != 0) 
-            {
-                if (array_key_exists($member->get_district_id(), $data_by_district_id)) {
-                    $available_slots = $data_by_district_id[$member->get_district_id()];
-                    $time_slots = array_merge($time_slots, $available_slots);
-                }
-                else {
-                    $available_slots = get_available_slots(0, $member->get_district_id());
-                    $data_by_district_id[$member->get_district_id()] = $available_slots;
-                    $time_slots = array_merge($time_slots, $available_slots);
-                }
-            }
-            
-            if ($member->get_email() != null && count($time_slots) > 0) {
-                if (send_email($member->get_email(), $time_slots)) {
-                    echo "Mail sent";
-                }
-                else {
-                    echo "Failed";
-                }
-            }
-            //wait for 1 second before processing another record
-            sleep(1);
         }
     } else {
         echo "No results";

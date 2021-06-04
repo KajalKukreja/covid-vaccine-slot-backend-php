@@ -28,9 +28,10 @@
 
                     foreach($row->sessions as $session) {
                         if ($session->available_capacity > 0) {
+                            $vaccine_fees = isset($response->vaccine_fees) || null;
                             $slot = array($row->name, $address, $row->fee_type, 
                             $session->available_capacity_dose1, $session->available_capacity_dose2, 
-                            $session->available_capacity, $row->vaccine_fees, $session->min_age_limit,
+                            $session->available_capacity, $vaccine_fees, $session->min_age_limit,
                             $session->vaccine, $session->slots, $session->date);
 
                             array_push($time_slots, $slot);

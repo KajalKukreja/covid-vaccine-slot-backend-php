@@ -5,13 +5,17 @@
         private $mobile_no;
         private $pincode;
         private $district_id;
+        private $age;
+        private $dose;
 
-        function __construct($id, $email, $mobile_no, $pincode, $district_id) {
+        function __construct($id, $email, $mobile_no, $pincode, $district_id, $age, $dose) {
             $this->id = $id;
             $this->email = $email;
             $this->mobile_no = $mobile_no;
             $this->pincode = $pincode;
             $this->district_id = $district_id;
+            $this->age = $age;
+            $this->dose = $dose;
         }
         function get_id() {
             return $this->id;
@@ -42,6 +46,18 @@
         }
         function set_district_id($district_id) {
             $this->district_id = $district_id;
+        }
+        function get_age() {
+            return $this->age;
+        }
+        function set_age($age) {
+            $this->age = $age;
+        }
+        function get_dose() {
+            return $this->dose;
+        }
+        function set_dose($dose) {
+            $this->dose = $dose;
         }
     }
 ?>

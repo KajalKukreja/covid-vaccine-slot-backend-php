@@ -17,10 +17,12 @@
     $mobile_no = $_GET['mobile_no'];
     $pincode = $_GET['pincode'];
     $district_id = $_GET['district_id'];
-
-    $sql = "INSERT INTO member(email, mobile_no, pincode, district_id) VALUES(?, ?, ?, ?)";
+    $age = $_GET['age'];
+    $dose = $_GET['dose'];
+    
+    $sql = "INSERT INTO member(email, mobile_no, pincode, district_id, age, dose) VALUES(?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('siii', $email, $mobile_no, $pincode, $district_id);
+    $stmt->bind_param('siiiis', $email, $mobile_no, $pincode, $district_id, $age, $dose);
     $result = $stmt->execute();
     $stmt->close();
     $conn->close();
