@@ -124,7 +124,8 @@
                             margin-left: 5px;'>Age ".$slot[7]."+</span>
                             <span class='doses' style='margin: 0 10px;
                             padding: 0 10px;
-                            border-left: 2px solid green;'>Dose 1 : ";
+                            border-left: 2px solid green;
+                            margin-right: 15px;'>Dose 1 : ";
                             
                     if ($slot[3] != 0) {
                         $message .= "<span class='capacity' style='text-decoration: none;
@@ -138,7 +139,7 @@
                         align-content: center;
                         justify-content: center;
                         height: 20px;
-                        margin-left: 5px;'>".$slot[3];
+                        margin-right: 10px;'>".$slot[3];
                     }
                     else {
                         $message .= "<span class='nocapacity' style='text-decoration: none;
@@ -152,7 +153,7 @@
                         align-content: center;
                         justify-content: center;
                         height: 20px;
-                        margin-left: 15px;'>".$slot[3];
+                        margin-right: 10px;'>".$slot[3];
                     }
 
                     $message .= "</span>Dose 2 : ";
@@ -168,8 +169,7 @@
                         border-radius: 50px;
                         align-content: center;
                         justify-content: center;
-                        height: 20px;
-                        margin-left: 5px;'>".$slot[4];
+                        height: 20px;'>".$slot[4];
                     }
                     else {
                         $message .= "<span class='nocapacity' style='text-decoration: none;
@@ -182,11 +182,10 @@
                         border-radius: 50px;
                         align-content: center;
                         justify-content: center;
-                        height: 20px;
-                        margin-left: 5px;'>".$slot[4];
+                        height: 20px;'>".$slot[4];
                     }
 
-                    $message .= "</span>
+                    $message .= "</span></span>
                             <a href='https://selfregistration.cowin.gov.in/' target='_blank' style='text-decoration: none;'>
                             <button type='button' style='font-size: 10px;
                             margin-left: 10px;
