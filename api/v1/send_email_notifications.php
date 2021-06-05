@@ -22,7 +22,7 @@
             $time_slots = array();
             $member = new Member($row["id"], $row["email"], $row["mobile_no"], $row["pincode"], $row["district_id"], $row["age"], $row["dose"]);
             $log_msg = "\nEmail : ".$member->get_email()." Pincode : ".$member->get_pincode()." District ID : ".$member->get_district_id()." Age : ".$member->get_age()." Dose : ".$member->get_dose();
-            error_log($log_msg, 3, 'cron_logs.log');
+            error_log($log_msg, 3, 'logs/cron_logs.log');
 
             if ($member->get_email() != 'null') {
                 if ($member->get_pincode() != null && 
@@ -87,10 +87,10 @@
 
                     if (count($filtered_slots) > 0) {
                         if (send_email($member->get_email(), $filtered_slots)) {
-                            error_log("\nMail sent to ".$member->get_email(), 3, 'cron_logs.log');
+                            error_log("\nMail sent to ".$member->get_email(), 3, 'logs/cron_logs.log');
                         }
                         else {
-                            error_log("\nMail could not be sent to ".$member->get_email(), 3, 'cron_logs.log');
+                            error_log("\nMail could not be sent to ".$member->get_email(), 3, 'logs/cron_logs.log');
                         }
                     }
                 }

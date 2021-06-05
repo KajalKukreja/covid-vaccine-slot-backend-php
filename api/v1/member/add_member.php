@@ -29,11 +29,11 @@
 
     if ($result) {
         $log_msg = "\nNew user added - Email : ".$email." Pincode : ".$pincode." District ID : ".$district_id." Age : ".$age." Dose : ".$dose;
-        error_log($log_msg, 3, 'cron_logs.log');
+        error_log($log_msg, 3, '../logs/new_user_logs.log');
     }
     else {        
         $log_msg = "\nFailed to add new user - Email : ".$email." Pincode : ".$pincode." District ID : ".$district_id." Age : ".$age." Dose : ".$dose;
-        error_log($log_msg, 3, 'cron_logs.log');
+        error_log($log_msg, 3, '../logs/new_user_logs.log');
     }
     echo $result;
 ?>
