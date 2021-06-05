@@ -10,7 +10,7 @@
     if(strpos($uri, '?member') !== false) {
         $domain = substr($uri, 0, strpos($uri, '?'));
         $domain = str_replace('/', '', $domain);
-        $query_string = "?email=".$_GET['email']."&mobile_no=".$_GET['mobile_no']."&pincode=".$_GET['pincode']."&district_id=".$_GET['district_id'];
+        $query_string = "?email=".$_GET['email']."&mobile_no=".$_GET['mobile_no']."&pincode=".$_GET['pincode']."&district_id=".$_GET['district_id']."&age=".$_GET['age']."&dose=".$_GET['dose'];
         header("Location: ".$protocol.$host.$domain."/api/v1/member/add_member.php".$query_string);
         exit();
     }

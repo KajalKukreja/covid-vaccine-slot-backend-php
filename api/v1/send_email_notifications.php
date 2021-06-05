@@ -57,7 +57,7 @@
                     $filtered_slots = array();
                     
                     //now filter the slots based on age/dose
-                    if ($member->get_age() != null && $member->get_dose() != null) {
+                    if ($member->get_age() != null && $member->get_age() != 0 && $member->get_dose() != null) {
                         foreach($time_slots as $slot) {
                             $available_doses = $member->get_dose() == 'dose1' ? $slot[3] : $slot[4];
                             if ($member->get_age() == $slot[7] && $available_doses > 0) {
@@ -65,7 +65,7 @@
                             }
                         }
                     }
-                    else if ($member->get_age() != null) {
+                    else if ($member->get_age() != null && $member->get_age() != 0) {
                         foreach($time_slots as $slot) {
                             if ($member->get_age() == $slot[7]) {
                                 array_push($filtered_slots, $slot);
