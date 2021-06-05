@@ -152,10 +152,10 @@
                         align-content: center;
                         justify-content: center;
                         height: 20px;
-                        margin-left: 5px;'>".$slot[3];
+                        margin-left: 15px;'>".$slot[3];
                     }
 
-                    $message .= "</span>, Dose 2 : ";
+                    $message .= "</span>Dose 2 : ";
                             
                     if ($slot[4] != 0) {
                         $message .= "<span class='capacity' style='text-decoration: none;

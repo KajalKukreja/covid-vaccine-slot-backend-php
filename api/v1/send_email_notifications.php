@@ -21,8 +21,7 @@
         while($row = $result->fetch_assoc()) {
             $time_slots = array();
             $member = new Member($row["id"], $row["email"], $row["mobile_no"], $row["pincode"], $row["district_id"], $row["age"], $row["dose"]);
-            echo "\n".$member->get_id()." ".$member->get_email()." ".$member->get_mobile_no()." ".$member->get_pincode()." ".$member->get_district_id()." ".$member->get_age()." ".$member->get_dose();
-
+            
             if ($member->get_email() != 'null') {
                 if ($member->get_pincode() != null && 
                     strlen(trim($member->get_pincode())) > 0 && 
@@ -86,10 +85,10 @@
 
                     if (count($filtered_slots) > 0) {
                         if (send_email($member->get_email(), $filtered_slots)) {
-                            echo "\nMail sent to ".$member->get_email();
+                            error_log("\nMail sent to ".$member->get_email(), 3, 'cron_logs.log');
                         }
                         else {
-                            echo "\nMail could not be sent to ".$member->get_email();
+                            error_log("\nMail could not be sent to ".$member->get_email(), 3, 'cron_logs.log');
                         }
                     }
                 }
@@ -98,8 +97,6 @@
                 sleep(1);
             }
         }
-    } else {
-        echo "No results";
     }
     $conn->close();
 ?>

@@ -3,7 +3,7 @@ use covid_vaccine_slot;
 drop table member;
 create table member(
     id int primary key auto_increment,
-    email varchar(100),
+    email varchar(100) NOT NULL,
     mobile_no bigint(10),
     pincode int(6),
     district_id int(6),
