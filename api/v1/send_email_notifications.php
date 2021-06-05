@@ -21,7 +21,9 @@
         while($row = $result->fetch_assoc()) {
             $time_slots = array();
             $member = new Member($row["id"], $row["email"], $row["mobile_no"], $row["pincode"], $row["district_id"], $row["age"], $row["dose"]);
-            
+            $log_msg = "\nEmail : ".$member->get_email()." Pincode : ".$member->get_pincode()." District ID : ".$member->get_district_id()." Age : ".$member->get_age()." Dose : ".$member->get_dose();
+            error_log($log_msg, 3, 'cron_logs.log');
+
             if ($member->get_email() != 'null') {
                 if ($member->get_pincode() != null && 
                     strlen(trim($member->get_pincode())) > 0 && 
