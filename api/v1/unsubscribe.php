@@ -11,7 +11,7 @@
 
     $email = $_GET['email'];
     
-    $sql = "DELETE FROM member WHERE email LIKE ?";
+    $sql = "DELETE FROM member WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
     $result = $stmt->execute();
